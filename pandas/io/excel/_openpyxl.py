@@ -594,6 +594,8 @@ class OpenpyxlReader(BaseExcelReader["Workbook"]):
 
         if cell.value is None:
             return ""  # compat with xlrd
+        elif cell.hyperlink is not None:
+            return f"{cell.value} ,hyperlink target - {cell.hyperlink.target}"
         elif cell.data_type == TYPE_ERROR:
             return np.nan
         elif cell.data_type == TYPE_NUMERIC:
